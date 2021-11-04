@@ -19,4 +19,4 @@ WORKDIR /dist
 
 COPY ..from build /dist   
 
-CMD["dotnet", "test.dll"]   
+#CMD["dotnet", "test.dll"]   
