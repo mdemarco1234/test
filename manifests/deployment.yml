@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: mdemarcotest 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mdemarcotest
+  template:
+    metadata:
+      labels:
+        app: mdemarcotest 
+    spec:
+      containers:
+        - name: mdemarcotest 
+          image: michaelwinneracr.azurecr.io/mdemarcotest
+          ports:
+          - containerPort: 80
