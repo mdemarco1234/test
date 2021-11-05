@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: '3ec07bb4-63b2-44a2-918d-cf4af5ed9829'
   imageRepository: 'mdemarcotest'
   containerRegistry: 'michaelwinneracr.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: '**/app/out/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'michaelwinneracr12479d9a-auth'
 
