@@ -1,22 +1,16 @@
-FROM mcr.microsoft.com/dotnet/core/sdk/5.0-alpine
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build-env
+WORKDIR /app
 
-WORKDIR /
+# Copy csproj and restore as distinct layers
+COPY /aspnet-core-dotnet-core/*.csproj ./
+RUN dotnet restore
 
-COPY consoletest.csproj .
+# Copy everything else and build
+COPY /aspnet-core-dotnet-core/ ./
+RUN dotnet publish -c Release -o out
 
-run dotnet restore
-
-COPY . .
-
-
-run dotnet build -c Release
-#dotnet test
-run dotnet publish -c Release -o /dist   
-
-FROM mcr.microsoft.com/dotnet/core/sdk/5.0-alpine
-
-WORKDIR /dist
-
-COPY ..from build /dist   
-
-CMD["dotnet", "test.dll"]   
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "aspnet-core-dotnet-core.dll"]
