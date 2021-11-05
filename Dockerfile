@@ -1,16 +1,21 @@
-FROM FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build-env
-WORKDIR .
+FROM mcr.microsoft.com/dotnet/runtime:5.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
 
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
-RUN dotnet restore
 
-# Copy everything else and build
-COPY . ./
-RUN dotnet publish -c Release -o out
+FROM mcr.microsoft.com/dotnet/runtime:5.0 AS build
+#WORKDIR /src
+COPY ["consoletest.csproj", "/"]
+RUN dotnet restore "consoletest.csproj"
+COPY . .
+#WORKDIR "/src/MyApp"
+RUN dotnet build "consoletest.csproj" -c Release -o /app/build
 
-# Build runtime image
-FROM FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim
-WORKDIR .
-COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "aspnet-core-dotnet-core.dll"]
+FROM build AS publish
+RUN dotnet publish "consoletest.csproj" -c Release -o /app/publish
+
+FROM base AS final
+#WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "consoletest.exe"]
