@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build-env
-WORKDIR /app
+WORKDIR /
 
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
