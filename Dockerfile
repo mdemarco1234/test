@@ -8,7 +8,7 @@ EXPOSE 80
 
 
 FROM mcr.microsoft.com/dotnet/runtime:5.0 AS build
-WORKDIR /bin/sh
+WORKDIR /app        
 COPY ["consoletest.csproj", "/app"]
 RUN dotnet restore "consoletest.csproj"
 #COPY . .
