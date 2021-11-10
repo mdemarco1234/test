@@ -13,10 +13,10 @@ COPY ["consoletest.csproj", "/app"]
 RUN dotnet restore "/app/consoletest.csproj"
 COPY . .
 WORKDIR /app              
-RUN dotnet build "consoletest.csproj" -c Release -o /app
+RUN dotnet build "consoletest.exe" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "consoletest.csproj" -c Release -o /app/publish
+RUN dotnet publish "consoletest.exe" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
