@@ -1,20 +1,24 @@
 FROM mcr.microsoft.com/dotnet/runtime:5.0 AS base
-#WORKDIR /app
+WORKDIR /app
 EXPOSE 80
 
+Copy /Bin/Debug .
 
-FROM mcr.microsoft.com/dotnet/runtime:5.0 AS build
+ENTRYPOINT ["consoletest.exe"]
+
+
+#FROM mcr.microsoft.com/dotnet/runtime:5.0 AS build
 #WORKDIR /src
 #COPY ["consoletest.csproj", "/"]
-RUN dotnet restore "consoletest.csproj"
-COPY . .
+#RUN dotnet restore "consoletest.csproj"
+#COPY . .
 #WORKDIR "/src/MyApp"
-RUN dotnet build "consoletest.csproj" -c Release -o /app/build
+#RUN dotnet build "consoletest.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "consoletest.csproj" -c Release -o /app/publish
+#FROM build AS publish
+#RUN dotnet publish "consoletest.csproj" -c Release -o /app/publish
 
-FROM base AS final
+#FROM base AS final
 #WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "consoletest.exe"]
+#COPY --from=publish /app/publish .
+#ENTRYPOINT ["dotnet", "consoletest.exe"]
