@@ -11,14 +11,14 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app        
 COPY ["consoletest.csproj", "/app"]
 RUN dotnet restore "/app/consoletest.csproj"
-#COPY . .
-#WORKDIR "/src/MyApp"
-RUN dotnet build "consoletest.csproj" -c Release -o /bin/sh
+COPY . .
+WORKDIR "/src/MyApp"
+RUN dotnet build "consoletest.csproj" -c Release -o /app
 
-#FROM build AS publish
-#RUN dotnet publish "consoletest.csproj" -c Release -o /app/publish
+FROM build AS publish
+RUN dotnet publish "consoletest.csproj" -c Release -o /app/publish
 
-#FROM base AS final
-#WORKDIR /app
-#COPY --from=publish /app/publish .
-#ENTRYPOINT ["dotnet", "consoletest.exe"]
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "consoletest.exe"]
