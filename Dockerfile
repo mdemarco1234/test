@@ -7,7 +7,7 @@ EXPOSE 80
 #ENTRYPOINT ["consoletest.exe"]
 
 
-FROM mcr.microsoft.com/dotnet/runtime:3.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:3.0 AS build
 WORKDIR /app        
 COPY ["consoletest.csproj", "/app"]
 RUN dotnet restore "/app/consoletest.csproj"
