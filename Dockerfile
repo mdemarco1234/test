@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/runtime:5.0 AS base
-WORKDIR /app
+WORKDIR /bin/sh
 EXPOSE 80
 
 #opy /Bin/Debug .
@@ -9,11 +9,11 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/runtime:5.0 AS build
 WORKDIR /app
-COPY ["consoletest.csproj", "/app"]
+COPY ["consoletest.csproj", "/bin/sh"]
 RUN dotnet restore "consoletest.csproj"
 #COPY . .
 #WORKDIR "/src/MyApp"
-RUN dotnet build "consoletest.csproj" -c Release -o /app/build
+RUN dotnet build "consoletest.csproj" -c Release -o /bin/sh
 
 #FROM build AS publish
 #RUN dotnet publish "consoletest.csproj" -c Release -o /app/publish
