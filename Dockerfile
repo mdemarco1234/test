@@ -6,7 +6,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/runtime:5.0 AS build
 #WORKDIR /src
-COPY ["consoletest.csproj", "/"]
+#COPY ["consoletest.csproj", "/"]
 RUN dotnet restore "consoletest.csproj"
 COPY . .
 #WORKDIR "/src/MyApp"
