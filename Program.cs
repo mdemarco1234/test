@@ -6,7 +6,7 @@ namespace consoletest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello World2!");
             
             while (true)
             {
