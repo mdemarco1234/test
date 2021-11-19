@@ -6,11 +6,10 @@ namespace consoletest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World2!");
-            
+             
             while (true)
             {
-                
+                Console.WriteLine("Hello World2!");
             }
             
         }
